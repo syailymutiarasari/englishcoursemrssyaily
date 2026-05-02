@@ -2,11 +2,123 @@
 <html>
 <head>
   <title>English Course Mrs. Syaily</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f3f4f6;
+    }
+    .container {
+      padding: 15px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .student {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    .student:hover {
+      background: #f9f9f9;
+    }
+    .bar {
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .fill {
+      background: #3b82f6;
+      height: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>English Course Mrs. Syaily</h1>
-<p>Student Progress Working ✅</p>
+<div class="container">
+  <h1>English Course Mrs. Syaily</h1>
+
+  <!-- Student List -->
+  <div class="card">
+    <h3>Students / Murid</h3>
+    <div id="studentList"></div>
+  </div>
+
+  <!-- Detail -->
+  <div class="card hidden" id="detail">
+    <h2 id="name"></h2>
+    <p id="level"></p>
+
+    <h4>Progress</h4>
+    <div id="progress"></div>
+
+    <h4>Teacher Notes / Catatan Guru</h4>
+    <p id="notes"></p>
+  </div>
+</div>
+
+<script>
+const students = [
+  {
+    name: "Alya",
+    level: "Beginner",
+    progress: { speaking: 7, writing: 6, reading: 8, listening: 7 },
+    notes: "Good improvement this week 👍"
+  },
+  {
+    name: "Budi",
+    level: "Intermediate",
+    progress: { speaking: 8, writing: 7, reading: 7, listening: 8 },
+    notes: "More confident in speaking 🎉"
+  }
+];
+
+const list = document.getElementById("studentList");
+const detail = document.getElementById("detail");
+
+students.forEach((s, i) => {
+  const div = document.createElement("div");
+  div.className = "student";
+  div.innerText = s.name + " - " + s.level;
+  div.onclick = () => showStudent(i);
+  list.appendChild(div);
+});
+
+function showStudent(i) {
+  const s = students[i];
+
+  detail.classList.remove("hidden");
+
+  document.getElementById("name").innerText = s.name;
+  document.getElementById("level").innerText = "Level: " + s.level;
+  document.getElementById("notes").innerText = s.notes;
+
+  const progressDiv = document.getElementById("progress");
+  progressDiv.innerHTML = "";
+
+  Object.entries(s.progress).forEach(([k,v]) => {
+    progressDiv.innerHTML += `
+      <p>${k}</p>
+      <div class="bar">
+        <div class="fill" style="width:${v*10}%"></div>
+      </div>
+    `;
+  });
+}
+</script>
 
 </body>
-</html>
+</html>to 
